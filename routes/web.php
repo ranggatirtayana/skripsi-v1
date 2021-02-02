@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    if(auth()->user() == null){
+        return redirect()->route("login");
+    }else{
+        return 1;
+    }
 });
 
 Route::get('/dashboard','AdminController@dashboard');
@@ -24,22 +29,22 @@ Route::get('/dashboard','AdminController@dashboard');
 Route::get('/fcm', "FirebaseController@index");
 Route::get('/send-notification', "FirebaseController@sendNotification");
 
-//Membuat Login
-Route::get('login', [
-    'uses' => 'LoginController@login',
-    'as' => 'login'
-]);
-
-Route::post('cek-login', [
-    'uses' => 'LoginController@ceklogin',
-    'as' => 'cek.login'
-]);
-
-//Route Keluar
-Route::get('logout', [
-    'uses' => 'LoginController@logout',
-    'as' => 'logout'
-]);
+////Membuat Login
+//Route::get('login', [
+//    'uses' => 'LoginController@login',
+//    'as' => 'login'
+//]);
+//
+//Route::post('cek-login', [
+//    'uses' => 'LoginController@ceklogin',
+//    'as' => 'cek.login'
+//]);
+//
+////Route Keluar
+//Route::get('logout', [
+//    'uses' => 'LoginController@logout',
+//    'as' => 'logout'
+//]);
 
 //Middleware nanti akan mengecek apakah user sudah login atau belum, Jika sudah maka akan dilanjutkan tapi jika belum maka akan diarahkan ke halaman login
 Route::group(['middleware' => 'auth'], function() {
@@ -133,3 +138,12 @@ Route::get("/firebase-test",function(){
 Route::get("wisnu",function(){
     return "wisnu";
 });
+
+Auth::routes();
+
+Route::get('/home', function(){
+    return redirect()->route("peserta.index");
+})->name('home');
+
+Auth::routes();
+

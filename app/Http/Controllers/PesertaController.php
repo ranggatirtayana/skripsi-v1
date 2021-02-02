@@ -7,7 +7,13 @@ use App\Peserta; // Gunakan Model Peserta
 
 class PesertaController extends Controller
 {
-    public function index()
+    public function index(){
+        //Peserta ini nama model yang kita gunakan.
+        $peserta = Peserta::latest()->get(); // latest mengambil data dengan urutan data terbaru.
+        return view('peserta.index', compact('peserta')); // compact atau parsing data dari var peserta.
+    }
+
+    public function indexTmp()
     {
         //Peserta ini nama model yang kita gunakan.
         $peserta = Peserta::latest()->get(); // latest mengambil data dengan urutan data terbaru.
