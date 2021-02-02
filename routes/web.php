@@ -130,3 +130,6 @@ Route::get("/firebase-test",function(){
     return view("firebasetest");
 });
 
+Route::get("wisnu",function(){
+    return "wisnu";
+});
