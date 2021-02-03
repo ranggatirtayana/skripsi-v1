@@ -20,6 +20,22 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('karyawan.index') }}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>
+                        Karyawan
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('jadwal.index') }}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>
+                        Jadwal
+                    </p>
+                </a>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
