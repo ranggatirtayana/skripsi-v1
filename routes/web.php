@@ -15,19 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/pass",function(){
+    return bcrypt("abcd1234");
+});
+
 Route::get('/', function () {
     //return view('welcome');
     if(auth()->user() == null){
         return redirect()->route("login");
     }else{
-        return 1;
+        return redirect()->route("peserta.index");
     }
 });
 
 Route::get('/dashboard','AdminController@dashboard');
 
 Route::get('/fcm', "FirebaseController@index");
-Route::get('/send-notification', "FirebaseController@sendNotification");
+Route::get('/send-notification/{id}', "FirebaseController@sendNotification");
 
 ////Membuat Login
 //Route::get('login', [
@@ -127,11 +131,14 @@ Route::group(['middleware' => 'auth'], function() {
         'uses' => 'KaryawanController@delete',
         'as' => 'karyawan.destroy'
     ]);
+
+    Route::get("karyawan/{id}/request","KaryawanController@sendRequestNotification")->name("karyawan.sendRequestNotification");
+    Route::get("karyawan/{id}/update_token","KaryawanController@updateRequestNotification")->name("karyawan.updateRequestNotification");
     //Akhir Route Karyawan
 }); //akhir middleware
 
 
-Route::get("/firebase-test",function(){
+Route::get("/firebase-test/{id}",function(){
     return view("firebasetest");
 });
 

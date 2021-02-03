@@ -32,7 +32,7 @@
                                 <td>{{ $vk->kd_pegawai }}</td>
                                 <td>{{ $vk->jadwal }}</td>
                                 <td>
-                                    <a class="btn btn-info" href="{{url("send-notification")}}">Kirim Notifikasi</a>
+                                    <a class="btn btn-info" href="{{url("send-notification",$vk->id)}}">Kirim Notifikasi</a>
                                     <a class="btn btn-primary" href="{{ route('jadwal.edit', $vk->id) }}">Edit</a>
                                     <a class="btn btn-danger" href="{{ route('jadwal.destroy', $vk->id) }}" onclick="return confirm('Hapus data dengan Kode Pegawai {{ $vk->kd_pegawai }}')">Hapus</a>
                                 </td>

@@ -19,6 +19,10 @@
                             <input class="form-control" type="text" name="nama_lengkap" id="nama_lengkap" required="">
                         </div>
                         <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input class="form-control" type="email" name="email" id="email" required="">
+                        </div>
+                        <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                 <option value="Laki-laki">Laki-laki</option>

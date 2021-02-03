@@ -21,6 +21,10 @@
                                 <input type="text" value="{{ $karyawan->nama_lengkap }}" name="nama_lengkap" class="form-control" id="nama_lengkap" placeholder="Nama Lengkap">
                             </div>
                             <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input class="form-control" value="{{ $karyawan->email }}" type="email" name="email" id="email" required="">
+                            </div>
+                            <div class="form-group">
                                 <label for="divisi">Divisi</label>
                                 <input type="text" value="{{ $karyawan->divisi }}" name="divisi" class="form-control" id="divisi" required="" placeholder="Nama Lengkap">
                             </div>

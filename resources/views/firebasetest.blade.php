@@ -6,50 +6,70 @@
     }
 </style>
 <body>
-    <div id="token"></div>
-    <div id="msg"></div>
-    <div id="notis"></div>
-    <div id="err"></div>
-    <script>
-       MsgElem = document.getElementById("msg")
-       TokenElem = document.getElementById("token")
-       NotisElem = document.getElementById("notis")
-       ErrElem = document.getElementById("err")
-    </script>
-</body>
-</html>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-analytics.js"></script>
-
+<h2 id="pesan">Mohon tunggu ...</h2>
+<div id="token"></div>
+<div id="msg"></div>
+<div id="notis"></div>
+<div id="err"></div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-messaging.js"></script>
 <script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyAQS1ajmt1uugULBGrP86Qu1ofjH2Nm398",
-    authDomain: "pmi15-f7e7c.firebaseapp.com",
-    projectId: "pmi15-f7e7c",
-    storageBucket: "pmi15-f7e7c.appspot.com",
-    messagingSenderId: "902303068285",
-    appId: "1:902303068285:web:93786322d886681e720114",
-    measurementId: "G-8FQSXXJZQ6"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+    MsgElem = document.getElementById("msg");
+    TokenElem = document.getElementById("token");
+    NotisElem = document.getElementById("notis");
+    ErrElem = document.getElementById("err");
+    // Initialize Firebase
+    // TODO: Replace with your project's customized code snippet
+    var config = {
+        apiKey: "AIzaSyCaWxqFh3Ee5fHXFjGUejxNg_DW12jnRi8",
+        authDomain: "pmi-skripsi.firebaseapp.com",
+        projectId: "pmi-skripsi",
+        storageBucket: "pmi-skripsi.appspot.com",
+        messagingSenderId: "136570720046",
+        appId: "1:136570720046:web:0b61610a5fa934d90d34bf",
+        measurementId: "G-SKQMR9WBS4"
+    };
+    firebase.initializeApp(config);
 
     const messaging = firebase.messaging();
     messaging
-    .requestPermission()
-    .then(function () {
-        MsgElem.innerHTML = "Notification permission granted." 
-        console.log("Notification permission granted.");
-    })
-    .catch(function (err) {
-    ErrElem.innerHTML = ErrElem.innerHTML + "; " + err
-    console.log("Unable to get permission to notify.", err);
-    });
+        .requestPermission()
+        .then(function () {
+            MsgElem.innerHTML = "Notification permission granted."
+            console.log("Notification permission granted.");
+
+            // get the token in the form of promise
+            return messaging.getToken()
+        })
+        .then(function(token) {
+            // TokenElem.innerHTML = "token is : " + token
+            $.ajax({
+                url:"{{ URL("/") }}/api/token",
+                type:"POST",
+                data:{
+                    user_id : "{{ $id }}",
+                    token : token
+                },
+                success:function(data){
+                    // $("#allow").html("Allow")
+                    $("#pesan").html("Update selesai ...")
+                    setTimeout(()=>{
+                        window.close();
+                    },10000)
+                },
+                error:function(err){
+                    alert("Terjadi kesalahan , harap hubungi bagian IT");
+                }
+            })
+        })
+        .catch(function (err) {
+            ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
+            console.log("Unable to get permission to notify.", err);
+        });
+
 </script>
+
+</body>
+
+</html>

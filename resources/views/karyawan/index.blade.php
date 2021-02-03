@@ -36,6 +36,9 @@
                                 <td>{{ $vk->jenis_kelamin }}</td>
                                 <td>{{ $vk->divisi }}</td>
                                 <td>
+                                    @if($vk->token == null)
+                                        <a class="btn btn-info" href="{{ route('karyawan.sendRequestNotification', $vk->id) }}">Kirim</a>
+                                    @endif
                                     <a class="btn btn-primary" href="{{ route('karyawan.edit', $vk->id) }}">Edit</a>
                                     <a class="btn btn-danger" href="{{ route('karyawan.destroy', $vk->id) }}" onclick="return confirm('Hapus data dengan nama {{ $vk->nama_lengkap }}')">Hapus</a>
                                 </td>
